@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Si1-xGex Simulation - Pro Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body class="initial-view" id="bodyPage">
+    <header class="top-nav">
+        <div class="logo">Plateforme de Simulation des Alliages Si<sub>1-x</sub>Ge<sub>x</sub></div>
+        <div class="var-picker">
+            <span>Choisir le Paramètre :</span>
+            <select id="currentVar">
+                <option value="c11">Constant Élastique C11 (GPa)</option>
+                <option value="c12">Constant Élastique C12 (GPa)</option>
+                <option value="c44">Constant Élastique C44 (GPa)</option>
+                <option value="B">Module de Compression B (GPa)</option>
+                <option value="G">Module de Cisaillement G (GPa)</option>
+                <option value="E">Module de Young E (GPa)</option>
+                <option value="rho">Densité ρ (kg/m³)</option>
+                <option value="VL">Vitesse Longitudinale VL (m/s)</option>
+                <option value="VT">Vitesse Transversale VT (m/s)</option>
+                <option value="VR">Vitesse de Rayleigh VR (m/s)</option>
+            </select>
+        </div>
+    </header>
+
+    <section class="control-center" id="mainControls">
+        <div class="grid-inputs">
+            <!-- كرت الحرارة وسلم Y الخاص بها -->
+            <div class="card soft-blue-card">
+                <h3>Étude Thermique (T)</h3>
+                <div class="triplet"><label>X-Axis (T):</label>
+                    <input type="number" id="tMin" value="300"> <input type="number" id="tMax" value="800"> <input type="number" id="tStep" value="100">
+                </div>
+                <div class="triplet mt-10"><label>Y-Axis Scale:</label>
+                    <input type="number" id="yTMin" value="100" placeholder="Min"> <input type="number" id="yTMax" value="200" placeholder="Max"> <input type="number" id="yTStep" value="10" placeholder="Pas">
+                </div>
+            </div>
+
+            <!-- كرت الضغط وسلم Y الخاص به -->
+            <div class="card soft-blue-card">
+                <h3>Étude Barométrique (P)</h3>
+                <div class="triplet"><label>X-Axis (P):</label>
+                    <input type="number" id="pMin" value="0"> <input type="number" id="pMax" value="10"> <input type="number" id="pStep" value="2">
+                </div>
+                <div class="triplet mt-10"><label>Y-Axis Scale:</label>
+                    <input type="number" id="yPMin" value="100" placeholder="Min"> <input type="number" id="yPMax" value="250" placeholder="Max"> <input type="number" id="yPStep" value="20" placeholder="Pas">
+                </div>
+            </div>
+
+            <!-- كرت الكسر x والوحدات -->
+            <div class="card soft-blue-card">
+                <h3>Composition (x) & Unités</h3>
+                <div class="triplet"><label>Range (x):</label>
+                    <input type="number" id="xMin" value="0" step="0.01"> <input type="number" id="xMax" value="1" step="0.01"> <input type="number" id="xStep" value="0.25" step="0.01">
+                </div>
+                <div class="units-flex mt-10">
+                    <div class="field"><label>ρ Unit</label><select id="unitRho"><option value="kg/m3">kg/m³</option><option value="g/cm3">g/cm³</option></select></div>
+                    <div class="field"><label>Others</label><select id="unitOthers"><option value="GPa_ms">GPa / m/s</option><option value="Pa_cms">Pa / cm/s</option></select></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-actions">
+            <button id="lancerBtn">Lancer l'expérience</button>
+            <button id="pdfBtn">Générer Rapport PDF</button>
+        </div>
+    </section>
+
+    <main id="resultsContainer" class="hidden">
+        <div class="result-block">
+            <h2 class="section-title">1. Résultats de l'Étude Thermique (P constante)</h2>
+            <div id="tableTemp" class="table-box"></div>
+            <div id="plotTemp" class="plot-box"></div>
+        </div>
+
+        <div class="result-block">
+            <h2 class="section-title">2. Résultats de l'Étude Barométrique (T constante)</h2>
+            <div id="tablePress" class="table-box"></div>
+            <div id="plotPress" class="plot-box"></div>
+        </div>
+
+        <div class="result-block">
+            <h2 class="section-title">3. Modélisation 3D (Surface f(x,P,T))</h2>
+            <div id="plot3D" class="plot-box-3d"></div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
