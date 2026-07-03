@@ -110,4 +110,3 @@ document.getElementById('pdfBtn').onclick = async () => {
 
 const PhysData = { Si: {c11: 165.7, c12: 63.9, c44: 79.6, k: 0.021, d: 4.2, rho: 2329, B: 97.8, G: 79.6, E: 165.7, VL: 9000, VT: 5400, VR: 4900}, Ge: {c11: 128.5, c12: 48.3, c44: 67.1, k: 0.026, d: 4.6, rho: 5323, B: 75.8, G: 67.1, E: 128.5, VL: 5400, VT: 3000, VR: 2800} };
 
-
